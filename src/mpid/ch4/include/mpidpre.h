@@ -453,6 +453,11 @@ extern MPIDII_av_table_t *MPIDII_av_table0;
 #define MPIDIU_LPID_CLEAR_NEW_AVT_MARK(lpid) ((lpid) &= (~MPIDIU_NEW_AVT_MARK))
 #define MPIDIU_LPID_IS_NEW_AVT(lpid)         ((lpid) & MPIDIU_NEW_AVT_MARK)
 
+typedef struct MPIDI_CH4_ep {
+    MPID_Thread_mutex_t lock;
+
+    union { MPIDI_NM_EP_DECL } netmod;
+} MPIDI_CH4_ep_t;
 
 #include "mpidu_pre.h"
 

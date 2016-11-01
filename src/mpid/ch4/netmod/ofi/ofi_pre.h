@@ -185,4 +185,8 @@ typedef struct {
 #endif
 } MPIDI_OFI_addr_t;
 
+typedef struct MPIDI_OFI_ep_t {
+    int ep_index;
+} MPIDI_OFI_ep_t;
+
 #endif

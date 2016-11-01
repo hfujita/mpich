@@ -141,6 +141,12 @@ MPIDI_${net_upper}_gpid_t ${net};"
         ch4_netmod_addr_decl="${ch4_netmod_addr_decl} \\
 MPIDI_${net_upper}_addr_t ${net};"
     fi
+    if test -z "$ch4_netmod_ep_decl" ; then
+        ch4_netmod_ep_decl="MPIDI_${net_upper}_ep_t ${net};"
+    else
+        ch4_netmod_ep_decl="${ch4_netmod_ep_decl} \\
+MPIDI_${net_upper}_ep_t ${net};"
+    fi
 
 
 
@@ -167,6 +173,7 @@ AC_SUBST(ch4_netmod_win_decl)
 AC_SUBST(ch4_netmod_gpid_decl)
 AC_SUBST(ch4_netmod_addr_decl)
 AC_SUBST(ch4_netmod_op_decl)
+AC_SUBST(ch4_netmod_ep_decl)
 AM_SUBST_NOTMAKE(ch4_netmod_pre_include)
 AM_SUBST_NOTMAKE(ch4_netmod_amrequest_decl)
 AM_SUBST_NOTMAKE(ch4_netmod_request_decl)
@@ -176,6 +183,7 @@ AM_SUBST_NOTMAKE(ch4_netmod_win_decl)
 AM_SUBST_NOTMAKE(ch4_netmod_gpid_decl)
 AM_SUBST_NOTMAKE(ch4_netmod_addr_decl)
 AM_SUBST_NOTMAKE(ch4_netmod_op_decl)
+AM_SUBST_NOTMAKE(ch4_netmod_ep_decl)
 
 AC_ARG_ENABLE(ch4-netmod-direct,
     [--enable-ch4-netmod-direct
@@ -313,6 +321,12 @@ MPIDI_${shm_upper}_request_t ${shm};"
         ch4_shm_comm_decl="${ch4_shm_comm_decl} \\
 MPIDI_${shm_upper}_comm_t ${shm};"
     fi
+    if test -z "$ch4_shm_ep_decl" ; then
+        ch4_shm_ep_decl="MPIDI_${shm_upper}_ep_t ${shm};"
+    else
+        ch4_shm_ep_decl="${ch4_shm_ep_decl} \\
+MPIDI_${shm_upper}_ep_t ${shm};"
+    fi
 
 
     shm_index=`expr $shm_index + 1`
@@ -330,9 +344,11 @@ AC_SUBST(ch4_shm_strings)
 AC_SUBST(ch4_shm_pre_include)
 AC_SUBST(ch4_shm_request_decl)
 AC_SUBST(ch4_shm_comm_decl)
+AC_SUBST(ch4_shm_ep_decl)
 AM_SUBST_NOTMAKE(ch4_shm_pre_include)
 AM_SUBST_NOTMAKE(ch4_shm_request_decl)
 AM_SUBST_NOTMAKE(ch4_shm_comm_decl)
+AM_SUBST_NOTMAKE(ch4_shm_ep_decl)
 
 if test "$ch4_shm_array_sz" = "1"  && test "$enable_ch4_shm_direct" = "yes" ;  then
    PAC_APPEND_FLAG([-DSHM_DIRECT=__shm_direct_${ch4_shm}__], [CPPFLAGS])
