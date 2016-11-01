@@ -18,11 +18,11 @@
 
 MPL_STATIC_INLINE_PREFIX int MPIDI_NM_mpi_init_hook(int rank, int size, int appnum, int *tag_ub,
                                                     MPIR_Comm * comm_world, MPIR_Comm * comm_self,
-                                                    int spawned, int num_contexts,
-                                                    void **netmod_contexts)
+                                                    int spawned,
+                                                    int num_eps_req, int *num_eps_prov)
 {
     return MPIDI_NM_func->mpi_init(rank, size, appnum, tag_ub, comm_world, comm_self, spawned,
-                                   num_contexts, netmod_contexts);
+                                   num_eps_req, *num_eps_prov);
 };
 
 MPL_STATIC_INLINE_PREFIX int MPIDI_NM_mpi_finalize_hook(void)

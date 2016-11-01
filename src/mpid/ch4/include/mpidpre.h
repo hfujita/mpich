@@ -453,7 +453,6 @@ extern MPIDII_av_table_t *MPIDII_av_table0;
 #define MPIDIU_LPID_CLEAR_NEW_AVT_MARK(lpid) ((lpid) &= (~MPIDIU_NEW_AVT_MARK))
 #define MPIDIU_LPID_IS_NEW_AVT(lpid)         ((lpid) & MPIDIU_NEW_AVT_MARK)
 
-
 #include "mpidu_pre.h"
 
 #endif /* MPIDPRE_H_INCLUDED */

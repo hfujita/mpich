@@ -46,8 +46,7 @@ static inline int MPIDI_OFI_init_generic(int rank,
                                          MPIR_Comm * comm_world,
                                          MPIR_Comm * comm_self,
                                          int spawned,
-                                         int num_contexts,
-                                         void **netmod_contexts,
+                                         int num_eps_req, int *num_eps_prov,
                                          int do_av_table,
                                          int do_scalable_ep,
                                          int do_am,
@@ -336,6 +335,8 @@ static inline int MPIDI_OFI_init_generic(int rank,
                                                      do_scalable_ep,
                                                      do_data));
 
+    *num_eps_prov = 1;
+
     /* ---------------------------------- */
     /* Get our endpoint name and publish  */
     /* the socket to the KVS              */
@@ -398,7 +399,7 @@ static inline int MPIDI_OFI_init_generic(int rank,
         MPIR_Assert(MPIDI_OFI_DEFAULT_SHORT_SEND_SIZE <= MPIDI_Global.max_send);
         MPIDI_Global.am_buf_pool =
             MPIDI_CH4U_create_buf_pool(MPIDI_OFI_BUF_POOL_NUM, MPIDI_OFI_BUF_POOL_SIZE);
-        mpi_errno = MPIDI_CH4U_mpi_init(comm_world, comm_self, num_contexts, netmod_contexts);
+        mpi_errno = MPIDI_CH4U_mpi_init(comm_world, comm_self, *num_eps_prov);
 
         if (mpi_errno)
             MPIR_ERR_POP(mpi_errno);
@@ -497,12 +498,11 @@ static inline int MPIDI_NM_mpi_init_hook(int rank,
                                          int *tag_ub,
                                          MPIR_Comm * comm_world,
                                          MPIR_Comm * comm_self,
-                                         int spawned, int num_contexts, void **netmod_contexts)
+                                         int spawned, int num_eps_req, int *num_eps_prov)
 {
     int mpi_errno;
     mpi_errno = MPIDI_OFI_init_generic(rank, size, appnum, tag_ub, comm_world,
-                                       comm_self, spawned, num_contexts,
-                                       netmod_contexts,
+                                       comm_self, spawned, num_eps_req, num_eps_prov,
                                        MPIDI_OFI_ENABLE_AV_TABLE,
                                        MPIDI_OFI_ENABLE_SCALABLE_ENDPOINTS,
                                        MPIDI_OFI_ENABLE_AM,
